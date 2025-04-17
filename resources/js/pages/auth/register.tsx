@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 type RegisterForm = {
     name: string;
     email: string;
+    phone: string;
     password: string;
     password_confirmation: string;
 };
@@ -20,6 +21,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
         email: '',
+        phone:'',
         password: '',
         password_confirmation: '',
     });
@@ -84,12 +86,12 @@ export default function Register() {
                                     required
                                     tabIndex={2}
                                     autoComplete="phone"
-                                    value={data.email}
-                                    onChange={(e) => setData('email', e.target.value)}
+                                    value={data.phone}
+                                    onChange={(e) => setData('phone', e.target.value)}
                                     disabled={processing}
                                     placeholder="089624..."
                                 />
-                                <InputError message={errors.email} />
+                                <InputError message={errors.phone} />
                             </div>
 
                             <div className="grid gap-2">
