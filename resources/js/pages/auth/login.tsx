@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 
 type LoginForm = {
     email: string;
+    phone: string;
     password: string;
     remember: boolean;
 };
@@ -23,6 +24,7 @@ interface LoginProps {
 export default function Login({ status, canResetPassword }: LoginProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         email: '',
+        phone: '',
         password: '',
         remember: false,
     });
@@ -38,7 +40,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         <>
             <div className="relative flex h-screen w-screen items-center justify-center bg-gradient-to-b bg-[url('/images/background.jpg')] from-transparent to-black bg-cover bg-left-bottom">
                 <div className="absolute h-screen w-screen bg-gradient-to-b from-black from-40% to-transparent"></div>
-                <div className="relative z-10 w-full max-w-[30rem] rounded-lg border border-amber-300 bg-black px-12 pt-10 pb-10">
+                <div className="relative z-10 w-full max-w-[30rem] rounded-lg border border-amber-300 bg-black px-12 pt-10 pb-10 transition-all duration-750 starting:-translate-y-24 starting:opacity-0">
                     <div className="mb-6 flex flex-col items-center">
                         <img src="/images/logo-k16-no-bg.png" alt="Logo rental PS Nganjuk K16" className="mb-4 w-24" />
                         <h1 className="mb-2 text-xl font-semibold">Login untuk Booking</h1>
@@ -49,17 +51,17 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <form className="flex flex-col gap-6" onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email</Label>
+                                    <Label htmlFor="phone">No. HP</Label>
                                     <Input
-                                        id="email"
-                                        type="email"
+                                        id="phone"
+                                        type="number"
                                         required
                                         autoFocus
                                         tabIndex={1}
-                                        autoComplete="email"
-                                        value={data.email}
-                                        onChange={(e) => setData('email', e.target.value)}
-                                        placeholder="email@example.com"
+                                        autoComplete="tel"
+                                        value={data.phone}
+                                        onChange={(e) => setData('phone', e.target.value)}
+                                        placeholder="Enter your phone number"
                                     />
                                     <InputError message={errors.email} />
                                 </div>
@@ -67,11 +69,6 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                                 <div className="grid gap-2">
                                     <div className="flex items-center">
                                         <Label htmlFor="password">Password</Label>
-                                        {canResetPassword && (
-                                            <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                                Forgot password?
-                                            </TextLink>
-                                        )}
                                     </div>
                                     <Input
                                         id="password"

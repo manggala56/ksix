@@ -7,7 +7,44 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer base {
+    @font-face {
+      font-family: 'TarrgetItalic';
+      src: url('/fonts/tarrget/TarrgetItalic-xzP8.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'MontserratRegular';
+      font-weight: normal;
+      font-style: normal;
+      src: url('/public/fonts/montserrat/Montserrat-Regular.ttf') format('ttf');
+    }
+  
+    @font-face {
+      font-family: 'Tarrget3D';
+      src: url('/fonts/tarrget/Tarrget3DItalic-LdKg.otf') format('opentype');
+      font-weight: normal;
+      font-style: italic;
+    }
+  
+    /* Add more font variations */
+    @font-face {
+      font-family: 'TarrgetEngraved';
+      src: url('/public/fonts/tarrget/TarrgetEngravedItalic-G20y.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  
+    /* Continue for other variants... */
+  }
+
 @theme {
+
+    --font-tarrget-engraved: TarrgetEngraved, sans-serif;
+    --font-montserrat-regular: MonserratRegular, sans-serif;
+    --font-tarrget-italic: TarrgetItalic, sans-serif;
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
