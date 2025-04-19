@@ -94,7 +94,7 @@ export default function BookingPage() {
                         <Input placeholder="Masukan Jam jika bermain reguler" id="clocktime" />
                     </div>
 
-                    <Button className="w-full">
+                    <Button variant={'primary'} className="w-full">
                         <Book /> Booking
                     </Button>
                 </div>
