@@ -11,19 +11,19 @@ import { Label } from '@/components/ui/label';
 
 type RegisterForm = {
     name: string;
-    email: string;
     phone: string;
     password: string;
     password_confirmation: string;
+    role: string;
 };
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
-        email: '',
         phone: '',
         password: '',
         password_confirmation: '',
+        role:'allrole'
     });
 
     const submit: FormEventHandler = (e) => {
@@ -62,22 +62,6 @@ export default function Register() {
                                         placeholder="Nama Lengkap"
                                     />
                                     <InputError message={errors.name} className="mt-2" />
-                                </div>
-
-                                <div className="grid gap-2">
-                                    <Label htmlFor="email">Email</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        required
-                                        tabIndex={2}
-                                        autoComplete="email"
-                                        value={data.email}
-                                        onChange={(e) => setData('email', e.target.value)}
-                                        disabled={processing}
-                                        placeholder="email@contoh.com"
-                                    />
-                                    <InputError message={errors.email} />
                                 </div>
 
                                 <div className="grid gap-2">
@@ -126,6 +110,7 @@ export default function Register() {
                                         placeholder="Confirm password"
                                     />
                                     <InputError message={errors.password_confirmation} />
+
                                 </div>
 
                                 <div className="flex items-center space-x-3">
@@ -137,7 +122,6 @@ export default function Register() {
                                         </TextLink>
                                     </Label>
                                 </div>
-
                                 <Button variant="primary" type="submit" className="mt-2 w-full" tabIndex={6} disabled={processing}>
                                     {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                     Daftar Akun
