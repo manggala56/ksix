@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { Book, Clock, DollarSign, HomeIcon, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -54,10 +55,12 @@ export default function NavBar() {
                         {data.title}
                     </button>
                 ))}
-                <button className="mb-3 flex w-full gap-3 rounded bg-white px-2 py-2 text-black transition-all hover:bg-neutral-400">
-                    <Book />
-                    Booking
-                </button>
+                <Link href={route('booking')}>
+                    <button className="mb-3 flex w-full gap-3 rounded bg-white px-2 py-2 text-black transition-all hover:bg-neutral-400">
+                        <Book />
+                        Booking
+                    </button>
+                </Link>
             </div>
             <div className="w-fu h-[1px] bg-gradient-to-r from-yellow-400 to-amber-100"></div>
         </>

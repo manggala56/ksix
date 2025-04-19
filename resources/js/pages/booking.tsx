@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { ArrowLeft, Book } from 'lucide-react';
 
 export default function BookingPage() {
@@ -12,9 +12,11 @@ export default function BookingPage() {
             <div className="flex h-screen w-screen justify-center px-5 py-3 lg:items-center">
                 <div className="w-full max-w-[30rem]">
                     <div className="mb-3">
-                        <Button variant={'outline'}>
-                            <ArrowLeft /> Kembali
-                        </Button>
+                        <Link href={'/'}>
+                            <Button variant={'outline'}>
+                                <ArrowLeft /> Kembali
+                            </Button>
+                        </Link>
                     </div>
                     <div className="mb-5">
                         <div className="font-montserrat-regular text-2xl">Booking Nomor</div>

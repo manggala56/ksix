@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { Book, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 
@@ -20,10 +21,12 @@ export default function HeroSection() {
                 <Button variant="secondary">
                     <Clock /> <div>Cek Billing</div>
                 </Button>
-                <Button>
-                    <Book />
-                    Booking Sekarang
-                </Button>
+                <Link href={route('booking')}>
+                    <Button>
+                        <Book />
+                        Booking Sekarang
+                    </Button>
+                </Link>
             </div>
         </>
     );
