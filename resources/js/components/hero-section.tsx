@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { Book, Clock } from 'lucide-react';
+import { Book } from 'lucide-react';
 import { Button } from './ui/button';
 
 export default function HeroSection() {
@@ -7,7 +7,7 @@ export default function HeroSection() {
         <>
             <div className="">
                 <div className="flex items-center justify-center">
-                    <img src="/images/logo-k16-no-bg.png" className="w-80" alt="" />
+                    <img src="/images/logo-k16-no-bg.png" className="w-80 -translate-y-20" alt="" />
                 </div>
             </div>
             <div className="mb-5">
@@ -18,9 +18,9 @@ export default function HeroSection() {
                 </div>
             </div>
             <div className="mb-5 flex justify-center gap-3">
-                <Button variant="secondary">
+                {/* <Button variant="secondary">
                     <Clock /> <div>Cek Billing</div>
-                </Button>
+                </Button> */}
                 <Link href={route('booking')}>
                     <Button>
                         <Book />

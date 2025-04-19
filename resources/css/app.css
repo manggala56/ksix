@@ -200,6 +200,6 @@
     }
 
     body {
-        @apply bg-zinc-900 text-foreground;
+        @apply  text-foreground;
     }
 }
