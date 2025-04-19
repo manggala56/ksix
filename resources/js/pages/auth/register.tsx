@@ -37,7 +37,7 @@ export default function Register() {
         <>
             <div className="relative flex h-screen w-screen items-center justify-center bg-[url('/images/background.jpg')] bg-cover bg-left-bottom">
                 <div className="absolute h-screen w-screen bg-gradient-to-b from-black from-40% to-transparent"></div>
-                <div className="relative z-10 w-full max-w-[30rem] rounded-lg border border-amber-300 bg-black px-12 pt-10 pb-10 transition-all duration-750 starting:-translate-y-24 starting:opacity-0">
+                <div className="relative z-10 mx-5 w-full max-w-[30rem] rounded-lg border border-amber-300 bg-black px-12 pt-10 pb-10 transition-all duration-750 starting:-translate-y-24 starting:opacity-0">
                     <div className="w-full max-w-[25rem]">
                         <div className="mb-6 flex flex-col items-center">
                             <img src="/images/logo-k16-no-bg.png" alt="Logo rental PS Nganjuk K16" className="mb-4 w-24" />
