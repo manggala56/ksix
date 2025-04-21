@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Middleware\RoleManagemnt;
 
 Route::get('/', function () {
     return Inertia::render('index');
@@ -11,12 +10,14 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return Inertia::render('auth.login');
 })->name('login');
+Route::middleware(['auth'])->group(function () {
+    Route::get(uri: '/booking', action: function () {
+        return Inertia::render(component: 'booking');
+    })->name('booking');
+});
 
-Route::get(uri: '/booking', action: function () {
-    return Inertia::render(component: 'booking');
-})->name('booking');
 
-Route::middleware(['auth', 'verified','RoleManagemnt:admin'])->group(function () {
+Route::middleware(['auth', 'verified','redirect','role:admin'])->group(function () {
 
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
