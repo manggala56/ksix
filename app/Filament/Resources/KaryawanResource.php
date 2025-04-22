@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\KaryawanResource\Pages;
 use App\Filament\Resources\KaryawanResource\RelationManagers;
+use App\Models\Cabang;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -50,6 +51,12 @@ class KaryawanResource extends Resource
                         ->label('Password'),
                         Forms\Components\Hidden::make('role')
                         ->default('karyawan'),
+                    Forms\Components\Select::make('cabang_id')
+                        ->label('Cabang')
+                        ->options(Cabang::all()->pluck('nama', 'id'))
+                        ->required()
+                        ->searchable()
+                        ->preload()
                 ])->columns(2),
         ]);
     }
@@ -66,12 +73,16 @@ class KaryawanResource extends Resource
             Tables\Columns\TextColumn::make('phone')
                 ->label('Telepon')
                 ->searchable(),
-
+            Tables\Columns\TextColumn::make('cabang.nama')
+                ->label('Cabang')
+                ->searchable()
+                ->sortable(),
             Tables\Columns\TextColumn::make('created_at')
                 ->label('Tanggal Dibuat')
                 ->dateTime()
                 ->sortable(),
             ])
+
             ->filters([
                 //
             ])

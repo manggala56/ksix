@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'phone',
         'password',
-        'role'
+        'role',
+        'cabang_id',
     ];
 
     /**
@@ -44,5 +45,15 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+    public function cabang()
+    {
+        return $this->belongsTo(Cabang::class);
+    }
+
+    // Scope untuk karyawan
+    public function scopeKaryawan($query)
+    {
+        return $query->where('role', 'karyawan');
     }
 }

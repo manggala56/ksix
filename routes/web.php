@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return Inertia::render('index');
@@ -14,6 +15,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get(uri: '/booking', action: function () {
         return Inertia::render(component: 'booking');
     })->name('booking');
+    Route::resource('bookings', BookingController::class);
 });
 
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('phone')->unique();
             $table->timestamp('phone_verivecation')->nullable();
             $table->string('role')->nullable();
+            $table->string('cabang_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
