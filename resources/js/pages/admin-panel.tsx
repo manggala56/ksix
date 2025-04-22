@@ -1,13 +1,12 @@
 import InputError from '@/components/input-error';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '@/components/modal';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Label } from '@radix-ui/react-dropdown-menu';
 import { ArrowLeft, Check, Dot, Edit, X } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
-
+import { FormEventHandler, useState, useEffect } from 'react';
 
 type Booking = {
     id: number;
@@ -15,7 +14,7 @@ type Booking = {
     series: string;
     datetime: string;
     customer_note: string;
-    customer_name?: string; // Added optional field
+    customer_name?: string;
 };
 
 type BookingForm = {
@@ -23,8 +22,8 @@ type BookingForm = {
     note_to_customer: string;
 };
 
-
-export default function AdminPanelPage({ bookings }: { bookings: Booking[] }) {
+export default function AdminPanelPage({ bookings: initialBookings }: { bookings: Booking[] }) {
+    const [bookings, setBookings] = useState<Booking[]>(initialBookings);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
 
@@ -33,9 +32,23 @@ export default function AdminPanelPage({ bookings }: { bookings: Booking[] }) {
         note_to_customer: '',
     });
 
+    useEffect(() => {
+        window.Echo.channel('bookings')
+            .listen('NewBookingCreated', (e: { booking: Booking }) => {
+                setBookings(prev => [
+                    e.booking,
+                    ...prev
+                ]);
+            });
+
+        return () => {
+            window.Echo.leaveChannel('bookings');
+        };
+    }, []);
+
     function handleEditBooking(booking: Booking) {
         setSelectedBooking(booking);
-        reset(); // Reset form state
+        reset();
         setShowModal(true);
     }
 
@@ -46,7 +59,6 @@ export default function AdminPanelPage({ bookings }: { bookings: Booking[] }) {
         post(`/bookings/${selectedBooking.id}/update`, {
             onSuccess: () => {
                 setShowModal(false);
-
             }
         });
     };
