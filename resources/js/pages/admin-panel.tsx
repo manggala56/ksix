@@ -1,3 +1,4 @@
+import AdminNavbar from '@/components/admin-navbar';
 import InputError from '@/components/input-error';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from '@/components/modal';
 import { Button } from '@/components/ui/button';
@@ -148,6 +149,7 @@ export default function AdminPanelPage({ bookings: initialBookings }: { bookings
             </Modal>
 
             <Head title="Admin Panel" />
+            <AdminNavbar/>
             <div className="px-5 py-3">
                 <div className="mb-5">
                     <div className="flex items-center justify-between pe-3">
@@ -156,7 +158,6 @@ export default function AdminPanelPage({ bookings: initialBookings }: { bookings
                                 <ArrowLeft /> Kembali
                             </Button>
                         </Link>
-                        <div className="font-tarrget-italic text-2xl">admin panel</div>
                     </div>
                 </div>
                 <div className="mb-10">
@@ -166,6 +167,17 @@ export default function AdminPanelPage({ bookings: initialBookings }: { bookings
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
                         {bookings.map((booking) => (
                             <div key={booking.id} className="rounded-md border border-neutral-200 px-3 py-3">
+                                <div className="mb-3">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <div className="text-xs text-neutral-300">Nama Customer</div>
+                                            <div className="font-montserrat-regular text-md font-semibold">
+                                                {booking.customer_name} (089603234628)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="mb-3">
                                     <div className="flex items-center justify-between">
                                         <div>
@@ -182,6 +194,7 @@ export default function AdminPanelPage({ bookings: initialBookings }: { bookings
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="mb-1">
                                     <div className="text-xs text-neutral-300">Tanggal dan Waktu</div>
                                     <div className="font-montserrat-regular text-lg font-semibold">
