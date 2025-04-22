@@ -23,7 +23,7 @@ export default function Register() {
         phone: '',
         password: '',
         password_confirmation: '',
-        role:'allrole'
+        role: 'allrole',
     });
 
     const submit: FormEventHandler = (e) => {
@@ -110,16 +110,12 @@ export default function Register() {
                                         placeholder="Confirm password"
                                     />
                                     <InputError message={errors.password_confirmation} />
-
                                 </div>
 
                                 <div className="flex items-center space-x-3">
-                                    <Checkbox id="remember" name="remember" tabIndex={3} />
+                                    <Checkbox id="remember" name="remember" tabIndex={5} />
                                     <Label htmlFor="remember">
-                                        Saya Setuju Dengan{' '}
-                                        <TextLink href={route('login')} tabIndex={5}>
-                                            Syarat dan Ketentuan
-                                        </TextLink>
+                                        Saya Setuju Dengan <TextLink href={route('login')}>Syarat dan Ketentuan</TextLink>
                                     </Label>
                                 </div>
                                 <Button variant="primary" type="submit" className="mt-2 w-full" tabIndex={6} disabled={processing}>
