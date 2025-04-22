@@ -56,4 +56,8 @@ class User extends Authenticatable
     {
         return $query->where('role', 'karyawan');
     }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

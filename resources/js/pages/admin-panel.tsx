@@ -8,42 +8,47 @@ import { Label } from '@radix-ui/react-dropdown-menu';
 import { ArrowLeft, Check, Dot, Edit, X } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 
-export const dataStructure = [
-    {
-        id: 2213,
-        room: 'Luxury',
-        series: 'PS3',
-        datetime: '10/05/2025 - 20:00',
-        customer_note:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus laboriosam architecto eum mollitia optio nisi iure voluptatum? Aliquid et labore quia cumque eaque provident, eos, tenetur blanditiis, dignissimos doloribus sequi.',
-    },
-    {
-        id: 2214,
-        room: 'Luxury',
-        series: 'PS3',
-        datetime: '10/05/2025 - 20:00',
-        customer_note:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus laboriosam architecto eum mollitia optio nisi iure voluptatum? Aliquid et labore quia cumque eaque provident, eos, tenetur blanditiis, dignissimos doloribus sequi.',
-    },
-];
+
+type Booking = {
+    id: number;
+    room: string;
+    series: string;
+    datetime: string;
+    customer_note: string;
+    customer_name?: string; // Added optional field
+};
 
 type BookingForm = {
     answer: string;
     note_to_customer: string;
 };
 
-export default function AdminPanelPage() {
+
+export default function AdminPanelPage({ bookings }: { bookings: Booking[] }) {
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+
     const { data, setData, post, processing, errors, reset } = useForm<Required<BookingForm>>({
         answer: '',
         note_to_customer: '',
     });
 
-    //Function asign data ke modal yang terpanggil
-    function asignData() {}
+    function handleEditBooking(booking: Booking) {
+        setSelectedBooking(booking);
+        reset(); // Reset form state
+        setShowModal(true);
+    }
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+        if (!selectedBooking) return;
+
+        post(`/bookings/${selectedBooking.id}/update`, {
+            onSuccess: () => {
+                setShowModal(false);
+
+            }
+        });
     };
 
     return (
@@ -52,7 +57,10 @@ export default function AdminPanelPage() {
                 <form onSubmit={submit}>
                     <div className="mb-2 flex justify-between">
                         <ModalHeader>Edit Booking</ModalHeader>
-                        <X className="cursor-pointer" onClick={() => setShowModal(false)} />
+                        <X
+                            className="cursor-pointer"
+                            onClick={() => setShowModal(false)}
+                        />
                     </div>
                     <div className="mb-3">
                         <div className="h-[1px] w-full bg-white"></div>
@@ -61,22 +69,25 @@ export default function AdminPanelPage() {
                         <div className="mb-3">
                             <div className="mb-3">
                                 <Label>Nama Customer</Label>
-                                <div className="font-montserrat-regular text-xl font-semibold text-white">Faturahmansyah</div>
+                                <div className="font-montserrat-regular text-xl font-semibold text-white">
+                                    {selectedBooking?.customer_name || 'Customer'}
+                                </div>
                             </div>
 
                             <div className="mb-3">
                                 <Label>Catatan Customer</Label>
                                 <Textarea
-                                    value={
-                                        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus laboriosam architecto eum mollitia optio nisi iure voluptatum? Aliquid et labore quia cumque eaque provident, eos, tenetur blanditiis, dignissimos doloribus sequi.'
-                                    }
+                                    value={selectedBooking?.customer_note || ''}
                                     readOnly
                                 />
                             </div>
 
                             <div className="mb-3">
                                 <Label>Beri Jawaban</Label>
-                                <Select>
+                                <Select
+                                    value={data.answer}
+                                    onValueChange={(value) => setData('answer', value)}
+                                >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih Jawaban" />
                                     </SelectTrigger>
@@ -94,8 +105,6 @@ export default function AdminPanelPage() {
                                 <Label>Catatan Ke Customer</Label>
                                 <Textarea
                                     value={data.note_to_customer}
-                                    id="note_to_customer"
-                                    name="note_to_customer"
                                     onChange={(e) => setData('note_to_customer', e.target.value)}
                                     placeholder="Sorry bro wes kebek..."
                                 />
@@ -106,10 +115,18 @@ export default function AdminPanelPage() {
                     <ModalFooter>
                         <div className="mb-3">
                             <div className="flex justify-end gap-3">
-                                <Button onClick={() => setShowModal(false)} variant={'secondary'}>
+                                <Button
+                                    type="button"
+                                    onClick={() => setShowModal(false)}
+                                    variant={'secondary'}
+                                >
                                     Cancel
                                 </Button>
-                                <Button variant={'primary'}>
+                                <Button
+                                    type="submit"
+                                    variant={'primary'}
+                                    disabled={processing}
+                                >
                                     <Check /> Simpan
                                 </Button>
                             </div>
@@ -117,6 +134,7 @@ export default function AdminPanelPage() {
                     </ModalFooter>
                 </form>
             </Modal>
+
             <Head title="Admin Panel" />
             <div className="px-5 py-3">
                 <div className="mb-5">
@@ -134,30 +152,42 @@ export default function AdminPanelPage() {
                         Booking Masuk <Dot className="stroke-[5px] text-red-500" />
                     </div>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-                        {dataStructure.map((data, index) => (
-                            <div key={data.id} className="rounded-md border border-neutral-200 px-3 py-3">
+                        {bookings.map((booking) => (
+                            <div key={booking.id} className="rounded-md border border-neutral-200 px-3 py-3">
                                 <div className="mb-3">
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <div className="text-xs text-neutral-300">Ruangan</div>
-                                            <div className="font-montserrat-regular text-lg font-semibold">{data.room}</div>
+                                            <div className="font-montserrat-regular text-lg font-semibold">
+                                                {booking.room}
+                                            </div>
                                         </div>
                                         <div className="text-end">
                                             <div className="text-xs text-neutral-300">Seri PS</div>
-                                            <div className="font-gyrochrome text-md">{data.series}</div>
+                                            <div className="font-gyrochrome text-md">
+                                                {booking.series}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="mb-1">
                                     <div className="text-xs text-neutral-300">Tanggal dan Waktu</div>
-                                    <div className="font-montserrat-regular text-lg font-semibold">{data.datetime}</div>
+                                    <div className="font-montserrat-regular text-lg font-semibold">
+                                        {booking.datetime}
+                                    </div>
                                 </div>
                                 <div className="mb-2">
                                     <div className="text-xs text-neutral-300">Catatan Customer</div>
-                                    <div className="line-clamp-2">{data.customer_note}</div>
+                                    <div className="line-clamp-2">
+                                        {booking.customer_note}
+                                    </div>
                                 </div>
                                 <div>
-                                    <Button onClick={() => setShowModal(!showModal)} className="w-full" variant="primary">
+                                    <Button
+                                        onClick={() => handleEditBooking(booking)}
+                                        className="w-full"
+                                        variant="primary"
+                                    >
                                         <Edit /> Jawab
                                     </Button>
                                 </div>

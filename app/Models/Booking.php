@@ -14,4 +14,8 @@ class Booking extends Model
         'booking_time',
         'note'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
