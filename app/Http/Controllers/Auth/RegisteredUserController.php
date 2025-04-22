@@ -33,17 +33,24 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|numeric|unique:'.User::class,
+            'phone' => 'required|numeric|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => 'required|string'
         ]);
 
-        if($request->role == "allrole"){
+        if ($request->role == "allrole") {
             $user = User::create([
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
                 'role' => 'user'
+            ]);
+        } else if ($request->role == "admin") {
+            $user = User::create([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'role' => 'admin'
             ]);
         }
 
