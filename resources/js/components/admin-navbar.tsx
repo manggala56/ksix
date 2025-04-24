@@ -6,7 +6,7 @@ import { Link } from "@inertiajs/react";
 const Navlist = [
     {
         title: "Waiting List",
-        path: "/waiting-list",
+        path: "/admin",
         icon: Clock
     },
     {

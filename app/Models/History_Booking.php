@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Booking extends Model
+use App\Models\User;
+class History_Booking extends Model
 {
     protected $fillable = [
         'status',
-        'user_id',
-        'room',
-        'ps',
-        'booking_time',
+        'id_karyawan',
+        'id_customer',
         'note',
+        'more',
+        'action'
     ];
     public function user()
     {

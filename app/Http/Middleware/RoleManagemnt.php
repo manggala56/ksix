@@ -15,7 +15,7 @@ class RoleManagemnt
      */
     public function handle(Request $request, Closure $next, ...$role): Response
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
+        if (!Auth::check() || Auth::user()->role !== $role[0]) {
             abort(403, 'Unauthorized action.');
         }
         return $next($request);

@@ -17,13 +17,11 @@ type Booking = {
     customer_note: string;
     customer_name?: string;
     phone : string;
-    id_user:number;
 };
 
 type BookingForm = {
     answer: string;
     note_to_customer: string;
-    id_customer : string;
 };
 
 export default function AdminPanelPage({ bookings: initialBookings }: { bookings: Booking[] }) {
@@ -34,7 +32,6 @@ export default function AdminPanelPage({ bookings: initialBookings }: { bookings
     const { data, setData, post, processing, errors, reset } = useForm<Required<BookingForm>>({
         answer: '',
         note_to_customer: '',
-        id_customer:selectedBooking?.id_user.toString() || '',
     });
 
     useEffect(() => {
@@ -57,15 +54,13 @@ export default function AdminPanelPage({ bookings: initialBookings }: { bookings
         setShowModal(true);
     }
 
-
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         if (!selectedBooking) return;
 
-        post(route('booking.list', { booking: selectedBooking.id }), {
+        post(`/admin/${selectedBooking.id}/update`, {
             onSuccess: () => {
                 setShowModal(false);
-                reset();
             }
         });
     };

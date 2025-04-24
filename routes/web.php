@@ -22,7 +22,13 @@ Route::middleware(['auth'])->group(function () {
     })->name('booking');
     Route::resource('bookings', BookingController::class);
 });
-Route::resource('admin', karyawanController::class);
+Route::post('booking/{booking}/list', [karyawanController::class, 'update'])
+    ->name('booking.list');
+Route::middleware(['auth','role:karyawan'])->group(function () {
+    Route::resource('admin', karyawanController::class);
+    Route::get('/booking-list',[karyawanController::class,'booking']);
+
+});
 Route::middleware(['auth','role:admin'])->group(function () {
 
     Route::get('dashboard', function () {
