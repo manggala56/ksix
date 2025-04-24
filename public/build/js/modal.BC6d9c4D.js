@@ -1,0 +1,6 @@
+import{c as s}from"./button.Bpplc5n2.js";import{j as e}from"./app.By_I8VkP.js";/**
+ * @license lucide-react v0.475.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const l=[["path",{d:"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7",key:"1m0v6g"}],["path",{d:"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",key:"ohrbg2"}]],d=s("SquarePen",l),c=({children:a})=>e.jsx(e.Fragment,{children:e.jsx("div",{className:"font-montserrat-regular text-2xl font-semibold",children:a??"Modal Header"})}),i=({children:a})=>e.jsx(e.Fragment,{children:a}),m=({children:a})=>e.jsx(e.Fragment,{children:a}),u=({children:a,status:r=!1,setter:t})=>e.jsx(e.Fragment,{children:e.jsx("div",{className:`absolute h-screen w-screen ${r?"":"hidden"}`,children:e.jsxs("div",{className:"relative h-full w-full",children:[e.jsx("div",{className:"absolute z-0 h-full w-full bg-black opacity-55"}),e.jsx("div",{className:"relative z-10 flex h-full w-full items-center justify-center",children:e.jsx("div",{className:"w-full max-w-[28rem] rounded-md border border-neutral-200 bg-neutral-900 px-3 py-3",children:a})})]})})});export{u as M,d as S,c as a,i as b,m as c};
