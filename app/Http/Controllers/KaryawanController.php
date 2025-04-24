@@ -14,46 +14,51 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::with(['user' => function($query) {
-            $query->select('id', 'name','phone');
-        }])
-        ->where('status', 'pending')
-        ->get()
-        ->map(function ($booking) {
-            return [
-                'id_user'=>$booking->user->id,
-                'id' => $booking->id,
-                'room' => $booking->room,
-                'series' => $booking->ps,
-                'datetime' => \Carbon\Carbon::parse($booking->booking_time)->format('d/m/Y - H:i'),
-                'customer_note' => $booking->note,
-                'customer_name' => $booking->user->name ?? 'Unknown',
-                'phone'=>"0".$booking->user->phone ?? '0'
-            ];
-        });
+        $bookings = Booking::with([
+            'user' => function ($query) {
+                $query->select('id', 'name', 'phone');
+            }
+        ])
+            ->where('status', 'pending')
+            ->get()
+            ->map(function ($booking) {
+                return [
+                    'id_user' => $booking->user->id,
+                    'id' => $booking->id,
+                    'room' => $booking->room,
+                    'series' => $booking->ps,
+                    'datetime' => \Carbon\Carbon::parse($booking->booking_time)->format('d/m/Y - H:i'),
+                    'customer_note' => $booking->note,
+                    'customer_name' => $booking->user->name ?? 'Unknown',
+                    'phone' => "0" . $booking->user->phone ?? '0'
+                ];
+            });
         return Inertia::render('admin-panel', [
             'bookings' => $bookings
         ]);
     }
-    public function booking(){
-        $bookings = Booking::with(['user' => function($query) {
-            $query->select('id', 'name','phone');
-        }])
-        ->where('status', 'aprove')
-        ->get()
-        ->map(function ($booking) {
-            return [
-                'id_user'=>$booking->user->id,
-                'id' => $booking->id,
-                'room' => $booking->room,
-                'series' => $booking->ps,
-                'datetime' => \Carbon\Carbon::parse($booking->booking_time)->format('d/m/Y - H:i'),
-                'customer_note' => $booking->note,
-                'customer_name' => $booking->user->name ?? 'Unknown',
-                'phone'=>"0".$booking->user->phone ?? '0'
-            ];
-        });
-        return Inertia::render('admin-booking', [
+    public function booking()
+    {
+        $bookings = Booking::with([
+            'user' => function ($query) {
+                $query->select('id', 'name', 'phone');
+            }
+        ])
+            ->where('status', 'accept')
+            ->get()
+            ->map(function ($booking) {
+                return [
+                    'id_user' => $booking->user->id,
+                    'id' => $booking->id,
+                    'room' => $booking->room,
+                    'series' => $booking->ps,
+                    'datetime' => \Carbon\Carbon::parse($booking->booking_time)->format('d/m/Y - H:i'),
+                    'customer_note' => $booking->note,
+                    'customer_name' => $booking->user->name ?? 'Unknown',
+                    'phone' => "0" . $booking->user->phone ?? '0'
+                ];
+            });
+        return Inertia::render('booking-list', [
             'bookings' => $bookings
         ]);
     }
@@ -100,7 +105,7 @@ class KaryawanController extends Controller
             "id_customer" => ['required']
         ]);
         Booking::find($id)->update([
-            "status"=>$request->answer,
+            "status" => $request->answer,
         ]);
         // $transction = Booking_Transaction::where('id_customer',$request->id_customer)->first();
         // if(!empty($transction)){

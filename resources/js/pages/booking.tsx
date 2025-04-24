@@ -1,10 +1,9 @@
-
 import { Button } from '@/components/ui/button';
 import { DateTimePicker } from '@/components/ui/date-time-picker';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Head, Link,useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft, Book } from 'lucide-react';
 import { useState } from 'react';
 // import { useState } from 'react';
@@ -18,7 +17,7 @@ export default function BookingPage() {
         room_type: '',
         ps_series: '',
         booking_time: '',
-        notes: ''
+        notes: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -30,7 +29,7 @@ export default function BookingPage() {
             },
             onError: () => {
                 // Handle errors
-            }
+            },
         });
     };
     return (
@@ -53,10 +52,7 @@ export default function BookingPage() {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <Label>Ruangan</Label>
-                            <Select
-                                value={data.room_type}
-                                onValueChange={(value) => setData('room_type', value)}
-                            >
+                            <Select value={data.room_type} onValueChange={(value) => setData('room_type', value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Pilih Tipe Ruangan" />
                                 </SelectTrigger>
@@ -74,18 +70,15 @@ export default function BookingPage() {
 
                         <div className="mb-3">
                             <Label>Pilih Seri PS</Label>
-                            <Select
-                                value={data.ps_series}
-                                onValueChange={(value) => setData('ps_series', value)}
-                            >
+                            <Select value={data.ps_series} onValueChange={(value) => setData('ps_series', value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Pilih Seri PS" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectItem value="ps3">PS 3</SelectItem>
-                                        <SelectItem value="ps4">PS 4</SelectItem>
-                                        <SelectItem value="ps5">PS 5</SelectItem>
+                                        <SelectItem value="Playstation3">PS 3</SelectItem>
+                                        <SelectItem value="Playstation4">PS 4</SelectItem>
+                                        <SelectItem value="Playstation5">PS 5</SelectItem>
                                         <SelectItem value="netflix">Netflix</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
@@ -107,20 +100,11 @@ export default function BookingPage() {
 
                         <div className="mb-5">
                             <Label>Catatan Ke Operator</Label>
-                            <Textarea
-                                rows={5}
-                                value={data.notes}
-                                onChange={(e) => setData('notes', e.target.value)}
-                            />
+                            <Textarea rows={5} value={data.notes} onChange={(e) => setData('notes', e.target.value)} />
                             {errors.notes && <p className="text-sm text-red-500">{errors.notes}</p>}
                         </div>
 
-                        <Button
-                            variant={'primary'}
-                            className="w-full"
-                            type="submit"
-                            disabled={processing}
-                        >
+                        <Button variant={'primary'} className="w-full" type="submit" disabled={processing}>
                             <Book /> {processing ? 'Memproses...' : 'Booking'}
                         </Button>
                     </form>
