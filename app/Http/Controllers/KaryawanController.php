@@ -53,6 +53,9 @@ class KaryawanController extends Controller
                 'phone'=>"0".$booking->user->phone ?? '0'
             ];
         });
+        return Inertia::render('admin-booking', [
+            'bookings' => $bookings
+        ]);
     }
     /**
      * Show the form for creating a new resource.
