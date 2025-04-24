@@ -17,6 +17,15 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    build:{
+            rollupOptions: {
+                output: {
+                assetFileNames: 'assets/[name].[hash].[ext]',
+                chunkFileNames: 'js/[name].[hash].js',
+                entryFileNames: 'js/[name].[hash].js',
+                },
+            },
+    },
     resolve: {
         alias: {
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),

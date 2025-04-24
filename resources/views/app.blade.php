@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark' => ($appearance ?? 'system') == 'dark'])>
     <head>
-        @PwaHead
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
