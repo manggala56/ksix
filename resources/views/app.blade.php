@@ -7,6 +7,7 @@
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
+
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {
@@ -45,5 +46,18 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+    <script>
+        if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    });
+}
+    </script>
     </body>
 </html>
