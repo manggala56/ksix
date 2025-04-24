@@ -1,16 +1,20 @@
-{
-    "name": "Laravel PWA",
-    "short_name": "LPT",
-    "background_color": "#000000",
-    "display": "fullscreen",
-    "description": "A Progressive Web Application setup for Laravel projects.",
-    "theme_color": "#000000",
-    "start_url": "/",
-    "icons": [
+    {
+        "name": "OraKsixOraAsik",
+        "short_name": "ksix",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#00000",
+        "theme_color": "#ffba00",
+        "icons": [
         {
-            "src": "logo.png",
+            "src": "/images/logo-k16-no-bg.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo-k16-no-bg.png",
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
-}
+        ]
+    }
