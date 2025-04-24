@@ -48,16 +48,30 @@
         @inertia
     <script>
         if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('ServiceWorker registration successful');
-            })
-            .catch(err => {
-                console.log('ServiceWorker registration failed: ', err);
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
             });
-    });
-}
+            
+            window.Notification.requestPermission()
+            .then((permission) => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted');
+                    // You can show a test notification here if you want
+                    // new Notification('Notifications Enabled', {
+                    //     body: 'You will now receive notifications from this site',
+                    //     icon: '/images/logo-k16-no-bg.png'
+                    // });
+                } else if (permission === 'denied') {
+                    console.log('Notification permission denied');
+                }
+            });
+        }
     </script>
     </body>
 </html>
