@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 type LoginForm = {
-
     phone: string;
     password: string;
     remember: boolean;
@@ -42,14 +41,14 @@ export default function Login({ status }: LoginProps) {
                     <div className="mb-6 flex flex-col items-center">
                         <img src="/images/logo-k16-no-bg.png" alt="Logo rental PS Nganjuk K16" className="mb-4 w-24" />
                         <h1 className="mb-2 text-xl font-semibold">Login untuk Booking</h1>
-                        <div className="text-xs text-neutral-200">Masukan Email dan Password untuk Login</div>
+                        <div className="text-xs text-neutral-200">Masukan Nomer Wa dan Password untuk Login</div>
                     </div>
                     <Head title="Log in" />
                     <div className="">
                         <form className="flex flex-col gap-6" onSubmit={submit}>
                             <div className="grid gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="phone">No. HP</Label>
+                                    <Label htmlFor="phone">No. WA</Label>
                                     <Input
                                         id="phone"
                                         type="number"
